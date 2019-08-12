@@ -7,6 +7,7 @@ public class StartingApplication {
         private static final Contact cristi = new Contact("Cristi", "0000000000", "Cristi@gmail.com");
         private static final Contact ana = new Contact("Ana", "1111111111", "Ana@gmail.com");
         private PhoneBook myFirstPhoneBook = new PhoneBook();
+        Scanner scanner = new Scanner(System.in);
 
 
         public void display_menu() {
@@ -33,76 +34,27 @@ public class StartingApplication {
                 switch (choice) {
                     case 1:
                         System.out.println("You picked option 1");
-                        System.out.println("Please introduce the following details about the contact:");
-                        System.out.println("Name:");
-                        scanner = new Scanner(System.in);
-                        String name = scanner.nextLine();
-                        System.out.println("Phone number:");
-                        String phoneNumber = scanner.nextLine();
-                        System.out.println("Email:");
-                        String email = scanner.nextLine();
-                        myFirstPhoneBook.addContact(new Contact(name, phoneNumber, email));
-                        System.out.println("New contact has been created.");
-                        System.out.println("\n");
+                        addContact();
                         break;
                     case 2:
                         System.out.println("You picked option 2");
-                        System.out.println("Please introduce the name of the contact:");
-                        scanner = new Scanner(System.in);
-                        String detailAboutTheContact = scanner.nextLine();
-                        if (myFirstPhoneBook.removeContact(new Contact(detailAboutTheContact, "1", "a")))
-                            System.out.println("The contact has been removed.");
-                        System.out.println("\n");
+                        removeContact();
                         break;
                     case 3:
                         System.out.println("You picked option 3");
-                        System.out.println("Please introduce the name of the contact you want to edit:");
-                        scanner = new Scanner(System.in);
-                        String oldName = scanner.nextLine();
-                        System.out.println("Please introduce the following details about the new contact:");
-                        System.out.println("Name:");
-                        name = scanner.nextLine();
-                        System.out.println("Phone number:");
-                        phoneNumber = scanner.nextLine();
-                        System.out.println("Email:");
-                        email = scanner.nextLine();
-                        if (myFirstPhoneBook.editContact(new Contact(name, phoneNumber, email), new Contact(oldName, "1", "a")))
-                            System.out.println("The contact has been edited.");
-                        System.out.println("\n");
+                        editContact();
                         break;
                     case 4:
                         System.out.println("You picked option 4");
-                        List<Contact> exportedList = myFirstPhoneBook.exportContacts();
-                        System.out.println("Your contacts are:");
-                        for (int i = 0; i < exportedList.size(); i++)
-                            System.out.println(i + 1 + ": " + exportedList.get(i).getName());
-                        System.out.println("\n");
+                        exportList();
                         break;
                     case 5:
                         System.out.println("You picked option 5");
-                        System.out.println("Please introduce the name of the contact you want to search:");
-                        scanner = new Scanner(System.in);
-                        name = scanner.nextLine();
-                        searchResult = myFirstPhoneBook.searchContactByName(name);
-                        if (searchResult == null)
-                            System.out.println("A contact with this name does not exist.");
-                        else
-                            System.out.println("The number of this contact is: " +
-                                    myFirstPhoneBook.exportContacts().get(searchResult).getPhoneNumber());
-                        System.out.println("\n");
+                        searchContactByName();
                         break;
                     case 6:
                         System.out.println("You picked option 6");
-                        System.out.println("Please introduce the number of the contact you want to search:");
-                        scanner = new Scanner(System.in);
-                        phoneNumber = scanner.nextLine();
-                        searchResult = myFirstPhoneBook.searchContactByNumber(phoneNumber);
-                        if (searchResult == null)
-                            System.out.println("A contact with this number does not exist.");
-                        else
-                            System.out.println("The contact with this number is: " +
-                                    myFirstPhoneBook.exportContacts().get(searchResult).getName());
-                        System.out.println("\n");
+                        searchContactByNumber();
                         break;
                     case 7:
                         System.out.println("Exiting Program...");
@@ -113,5 +65,74 @@ public class StartingApplication {
                         break;
                 }
             }
+        }
+
+        private void addContact()   {
+            System.out.println("Please introduce the following details about the contact:");
+            System.out.println("Name:");
+            String name = scanner.nextLine();
+            System.out.println("Phone number:");
+            String phoneNumber = scanner.nextLine();
+            System.out.println("Email:");
+            String email = scanner.nextLine();
+            myFirstPhoneBook.addContact(new Contact(name, phoneNumber, email));
+            System.out.println("New contact has been created.");
+            System.out.println("\n");
+        }
+
+        private void removeContact()    {
+            System.out.println("Please introduce the name of the contact:");
+            String detailAboutTheContact = scanner.nextLine();
+            if (myFirstPhoneBook.removeContact(new Contact(detailAboutTheContact, "1", "a")))
+                System.out.println("The contact has been removed.");
+            System.out.println("\n");
+        }
+
+        private void editContact()  {
+            System.out.println("Please introduce the name of the contact you want to edit:");
+            String oldName = scanner.nextLine();
+            System.out.println("Please introduce the following details about the new contact:");
+            System.out.println("Name:");
+            String name = scanner.nextLine();
+            System.out.println("Phone number:");
+            String phoneNumber = scanner.nextLine();
+            System.out.println("Email:");
+            String email = scanner.nextLine();
+            if (myFirstPhoneBook.editContact(new Contact(name, phoneNumber, email), new Contact(oldName, "1", "a")))
+                System.out.println("The contact has been edited.");
+            System.out.println("\n");
+        }
+
+        private void exportList()   {
+            List<Contact> exportedList = myFirstPhoneBook.exportContacts();
+            System.out.println("Your contacts are:");
+            for (int i = 0; i < exportedList.size(); i++)
+                System.out.println(i + 1 + ": " + exportedList.get(i).getName());
+            System.out.println("\n");
+        }
+
+        private void searchContactByName()  {
+            System.out.println("Please introduce the name of the contact you want to search:");
+            String name = scanner.nextLine();
+            Integer searchResult = myFirstPhoneBook.searchContactByName(name);
+            if (searchResult == null)
+                System.out.println("A contact with this name does not exist.");
+            else
+                System.out.println("The number of this contact is: " +
+                        myFirstPhoneBook.exportContacts().get(searchResult).getPhoneNumber());
+            System.out.println("\n");
+        }
+
+
+        private void searchContactByNumber()    {
+            System.out.println("Please introduce the number of the contact you want to search:");
+            String phoneNumber = scanner.nextLine();
+            Integer searchResult = myFirstPhoneBook.searchContactByNumber(phoneNumber);
+            if (searchResult == null)
+                System.out.println("A contact with this number does not exist.");
+            else
+                System.out.println("The contact with this number is: " +
+                        myFirstPhoneBook.exportContacts().get(searchResult).getName());
+            System.out.println("\n");
         }
 }
