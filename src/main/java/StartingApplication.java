@@ -20,8 +20,6 @@ public class StartingApplication {
             Scanner in = new Scanner(System.in);
             boolean mainLoop = true;
             int choice;
-            Integer searchResult;
-            Scanner scanner = new Scanner(System.in);
 
             myFirstPhoneBook.addContact(andrei);
             myFirstPhoneBook.addContact(cristi);
