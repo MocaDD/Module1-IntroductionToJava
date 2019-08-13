@@ -18,7 +18,6 @@ public class StartingApplication {
 
         public StartingApplication() {
             Scanner in = new Scanner(System.in);
-            boolean mainLoop = true;
             int choice;
 
             myFirstPhoneBook.addContact(andrei);
